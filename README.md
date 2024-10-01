@@ -1,16 +1,11 @@
 # mobile_tech_challenge_plotting
 
-A new Flutter project.
+A flutter project made as a challenge for a job application's technical test.
 
-## Getting Started
+The challenge is meant to be done in 4 hours and I couldn't manage to get to the end of it.
 
-This project is a starting point for a Flutter application.
+Implemented the first version of a Bloc to get the data needed for the rest of the challenge.
 
-A few resources to get you started if this is your first Flutter project:
+Plotted the data.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Next step would have been to allow for selection of data from a start to an end date.

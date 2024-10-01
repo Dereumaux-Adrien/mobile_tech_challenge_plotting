@@ -10,7 +10,7 @@ class GlucoseIndications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocBuilder<GlucoseTrackingBloc, GlucoseTrackingState>(
+    return BlocBuilder<GlucoseTrackingBloc, GlucoseTrackingState>(
         builder: (context, glucoseTrackingState) {
       return Column(
         children: [
@@ -45,8 +45,5 @@ class GlucoseIndications extends StatelessWidget {
         ],
       );
     });
-    return Column(
-      children: [Text(title), Text(value)],
-    );
   }
 }
