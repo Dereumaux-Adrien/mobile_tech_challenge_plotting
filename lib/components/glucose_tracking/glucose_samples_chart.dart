@@ -13,26 +13,27 @@ class GlucoseSamplesChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GlucoseTrackingBloc, GlucoseTrackingState>(
         builder: (context, glucoseTrackingState) {
-      return Center(
-          child: glucoseTrackingState is GlucoseSamplesLoaded
-              ? Chart(
-                  data: glucoseTrackingState.glucoseSamples.list,
-                  variables: {
-                    'date': Variable(
-                      accessor: (GlucoseSample sample) => sample.timeStamp,
-                    ),
-                    'value': Variable(
-                      accessor: (GlucoseSample sample) =>
-                          sample.valueStandardized,
-                    ),
-                  },
-                  marks: [IntervalMark()],
-                  axes: [
-                    Defaults.horizontalAxis,
-                    Defaults.verticalAxis,
-                  ],
-                )
-              : const CircularProgressIndicator());
+      return glucoseTrackingState is GlucoseSamplesLoaded
+          ? Expanded(
+            child: Chart(
+                data: glucoseTrackingState.glucoseSamples.list,
+                variables: {
+                  'date': Variable(
+                    accessor: (GlucoseSample sample) => sample.timeStamp,
+                  ),
+                  'value': Variable(
+                    accessor: (GlucoseSample sample) =>
+                        sample.valueStandardized,
+                  ),
+                },
+                marks: [IntervalMark()],
+                axes: [
+                  Defaults.horizontalAxis,
+                  Defaults.verticalAxis,
+                ],
+              ),
+          )
+          : const CircularProgressIndicator();
     });
   }
 }
