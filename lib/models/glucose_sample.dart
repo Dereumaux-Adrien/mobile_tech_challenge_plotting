@@ -42,8 +42,8 @@ class GlucoseSample {
   /// To parse the incoming API response
   factory GlucoseSample.fromJson(Map<String, dynamic> json) {
     return GlucoseSample(
-        timeStamp: json['timeStamp'] as DateTime?,
-        value: json['value'] as double?,
+        timeStamp: DateTime.parse(json['timestamp'] as String),
+        value: double.parse(json['value'] as String),
         unit: json['unit'] as String?);
   }
 
