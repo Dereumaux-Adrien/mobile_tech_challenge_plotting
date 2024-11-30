@@ -24,6 +24,6 @@ class GlucoseSamples {
 
   @override
   String toString() {
-    return 'GlucoseSamples { list: $list }';
+    return 'GlucoseSamples { List<GlucoseSample> list: list.length: ${list.length}, \nlist.first: ${list.first}, \nlist.last: ${list.last} }';
   }
 }
