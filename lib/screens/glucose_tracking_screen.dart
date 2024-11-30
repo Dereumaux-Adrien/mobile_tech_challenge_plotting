@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobile_tech_challenge_plotting/blocs/glucose_tracking/glucose_tracking.dart';
-import 'package:mobile_tech_challenge_plotting/components/glucose_tracking/glucose_indications.dart';
+import 'package:mobile_tech_challenge_plotting/blocs/glucose_displaying/glucose_displaying_bloc.dart';
+import 'package:mobile_tech_challenge_plotting/components/glucose_tracking/glucose_values.dart';
 import 'package:mobile_tech_challenge_plotting/components/glucose_tracking/glucose_samples_chart.dart';
-import 'package:mobile_tech_challenge_plotting/components/glucose_tracking/time_input.dart';
-import 'package:mobile_tech_challenge_plotting/services/database_access.dart';
+import 'package:mobile_tech_challenge_plotting/components/glucose_tracking/date_range_input.dart';
 
 /// Screen for the glucose tracking
 class GlucoseTrackingScreen extends StatelessWidget {
@@ -16,24 +15,24 @@ class GlucoseTrackingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<GlucoseTrackingBloc>(
+    return BlocProvider<GlucoseDisplayingBloc>(
       create: (BuildContext context) =>
-          GlucoseTrackingBloc()..add(RequestData()),
+          GlucoseDisplayingBloc()..add(const RequestData()),
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("Here are your glucose levels"),
         ),
-        body: Column(
-          children: [
-            TimeInput(),
-            GlucoseSamplesChart(),
-            GlucoseIndications(),
-          ],
+        body: const Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              TimeInput(),
+              GlucoseSamplesChart(),
+              GlucoseValues(),
+            ],
+          ),
         ),
-        // floatingActionButton: AgeEstimationFloatingButton(
-        //     textEditingController:
-        //         textEditingController),
       ),
     );
   }
