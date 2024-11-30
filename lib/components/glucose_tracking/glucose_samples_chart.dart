@@ -1,8 +1,7 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graphic/graphic.dart';
-import 'package:mobile_tech_challenge_plotting/blocs/glucose_tracking/glucose_tracking.dart';
-import 'package:mobile_tech_challenge_plotting/models/glucose_sample.dart';
+import 'package:mobile_tech_challenge_plotting/blocs/glucose_displaying/glucose_displaying_bloc.dart';
 
 /// GlucoseSamplesChart
 class GlucoseSamplesChart extends StatelessWidget {
@@ -11,29 +10,50 @@ class GlucoseSamplesChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GlucoseTrackingBloc, GlucoseTrackingState>(
-        builder: (context, glucoseTrackingState) {
-      return glucoseTrackingState is GlucoseSamplesLoaded
-          ? Expanded(
-            child: Chart(
-                data: glucoseTrackingState.glucoseSamples.list,
-                variables: {
-                  'date': Variable(
-                    accessor: (GlucoseSample sample) => sample.timeStamp,
+    return BlocBuilder<GlucoseDisplayingBloc, GlucoseDisplayingState>(
+      builder: (context, glucoseTrackingState) {
+        if (glucoseTrackingState is GlucoseSamplesLoaded) {
+          return Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: LineChart(
+                LineChartData(
+                  lineBarsData: [
+                    LineChartBarData(spots: glucoseTrackingState.spots),
+                  ],
+                  titlesData: const FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        reservedSize: 30,
+                        showTitles: true,
+                      ),
+                    ),
+                    topTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: false,
+                      ),
+                    ),
+                    rightTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        showTitles: false,
+                      ),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                        reservedSize: 30,
+                        showTitles: true,
+                      ),
+                    ),
                   ),
-                  'value': Variable(
-                    accessor: (GlucoseSample sample) =>
-                        sample.valueStandardized,
-                  ),
-                },
-                marks: [IntervalMark()],
-                axes: [
-                  Defaults.horizontalAxis,
-                  Defaults.verticalAxis,
-                ],
+                ),
+                curve: Curves.linear,
               ),
-          )
-          : const CircularProgressIndicator();
-    });
+            ),
+          );
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
